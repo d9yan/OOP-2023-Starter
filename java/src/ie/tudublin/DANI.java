@@ -6,15 +6,17 @@ import processing.core.PApplet;
 
 public class DANI extends PApplet {
 
+	ArrayList
+
 	public void settings() {
 		size(1000, 1000);
 		fullScreen(SPAN);
 	}
 
 	String line;
+	
 
-
-	public String loadFile() {
+	public String loadFile(String s) {
 		loadStrings("small.txt");
 		split(line, ' ');
 		w.replaceAll();
@@ -30,6 +32,8 @@ public class DANI extends PApplet {
 		return null;
 	}
 
+
+
 	public void printModel()
 	{
 
@@ -38,7 +42,7 @@ public class DANI extends PApplet {
 	String[] sonnet;
 
 	public String[] writeSonnet() {
-		
+		loadFile();
 		return null;
 	}
 
@@ -49,8 +53,7 @@ public class DANI extends PApplet {
 
 	public void keyPressed() {
 		if (keyCode == ' ') {
-			writeSonnet();
-			loadFile()
+			printModel();
 		}
 	}
 
