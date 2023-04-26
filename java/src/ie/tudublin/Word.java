@@ -16,14 +16,14 @@ public class Word {
         return word;
     }
 
-    public void addFollow(String followWord) {
+    public void addFollow(String words) {
         for (Follow follow : follows) {
-            if (follow.getWord().equals(followWord)) {
-                follow.increment();
+            if (follow.getWord().equals(words)) {
+                follow.incrementCount();
                 return;
             }
         }
-        follows.add(new Follow(followWord));
+        follows.add(new Follow(words));
     }
 
     public ArrayList<Follow> getFollows() {
@@ -38,6 +38,9 @@ public class Word {
             sb.append(follow).append(" ");
         }
         return sb.toString();
+    }
+
+    public void addFollow(Follow follow) {
     }
 }
 

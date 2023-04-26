@@ -28,9 +28,7 @@ public class DANI extends PApplet {
 				if (i < words.length - 1) {
 					word.addFollow(words[i + 1]);
 				}
-			}
-		}
-	}
+            }
 
 	public void addFollow(String word, String follow) {
 		Word w = findWord(word);

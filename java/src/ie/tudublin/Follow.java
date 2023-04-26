@@ -2,15 +2,18 @@ package ie.tudublin;
 
 public class Follow {
 
-    private String word;
+    private Follow word;
     private int count;
 
-    public Follow(String word) {
-        this.word = word;
+    public Follow(Follow follow) {
+        this.word = follow;
         this.count = 1;
     }
 
-    public String getWord() {
+    public Follow(String follow) {
+    }
+
+    public Follow getWord() {
         return word;
     }
 
@@ -18,7 +21,7 @@ public class Follow {
         return count;
     }
 
-    public void increment() {
+    public void incrementCount() {
         count++;
     }
 
