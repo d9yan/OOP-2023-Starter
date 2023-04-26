@@ -8,6 +8,7 @@ public class DANI extends PApplet {
 
 	ArrayList<Word> words = new ArrayList<Word>();
 	String[] lines;
+	private ArrayList<Word> model;
 
 	public void settings() {
 		size(1000, 1000);
@@ -28,7 +29,9 @@ public class DANI extends PApplet {
 				if (i < words.length - 1) {
 					word.addFollow(words[i + 1]);
 				}
-            }
+			}
+		}
+	}
 
 	public void addFollow(String word, String follow) {
 		Word w = findWord(word);
@@ -65,16 +68,15 @@ public class DANI extends PApplet {
 		}
 	}
 
-	public Follow getRandomFollow()
-    ArrayList<Word> follows;
-	if (follows.size() == 0)
-    {
-        return null;
-    }
+	public Follow getRandomFollow() {
+		ArrayList<Word> follows;
+		if (follows.size() == 0) {
+			return null;
+		}
 
-    int index = (int) (Math.random() * follows.size());
-    return follows.get(index);
-}
+		int index = (int) (Math.random() * follows.size());
+		return follows.get(index);
+	}
 
 	public String[] writeSonnet() {
 		String[] sonnet = new String[14];

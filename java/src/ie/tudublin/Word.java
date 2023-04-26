@@ -46,6 +46,14 @@ public class Word {
     public Follow getRandomFollow() {
         return null;
     }
+
+    public Follow findFollow(String follow) {
+        return null;
+    }
+
+    public static Follow get(int index) {
+        return null;
+    }
 }
 
 
