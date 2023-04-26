@@ -66,11 +66,12 @@ public class DANI extends PApplet {
 	}
 
 	public Follow getRandomFollow()
-    if (follows.size() == 0)
+    ArrayList<Word> follows;
+	if (follows.size() == 0)
     {
         return null;
     }
-    // pick a random follow
+
     int index = (int) (Math.random() * follows.size());
     return follows.get(index);
 }

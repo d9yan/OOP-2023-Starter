@@ -2,18 +2,16 @@ package ie.tudublin;
 
 public class Follow {
 
-    private Follow word;
+    private String word;
     private int count;
+    private String follow;
 
-    public Follow(Follow follow) {
-        this.word = follow;
+    public Follow(String words) {
+        this.word = words;
         this.count = 1;
     }
 
-    public Follow(String follow) {
-    }
-
-    public Follow getWord() {
+    public String getWord() {
         return word;
     }
 

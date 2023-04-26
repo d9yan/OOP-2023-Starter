@@ -42,6 +42,10 @@ public class Word {
 
     public void addFollow(Follow follow) {
     }
+
+    public Follow getRandomFollow() {
+        return null;
+    }
 }
 
 
