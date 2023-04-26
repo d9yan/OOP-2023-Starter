@@ -1,46 +1,47 @@
 package ie.tudublin;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Word {
+
     private String word;
-    private ArrayList<Follow> follows;
+    private HashMap<String, Follow> follows;
 
     public Word(String word) {
         this.word = word;
-        follows = new ArrayList<Follow>();
+        this.follows = new HashMap<String, Follow>();
     }
 
     public String getWord() {
         return word;
     }
 
+    public void addFollow(String followWord) {
+        if (follows.containsKey(followWord)) {
+            Follow follow = follows.get(followWord);
+            follow.increment();
+        } else {
+            follows.put(followWord, new Follow(followWord));
+        }
+    }
+
     public ArrayList<Follow> getFollows() {
-        return follows;
+        return new ArrayList<Follow>(follows.values());
     }
 
-    public void addFollow(String word) {
-        boolean found = false;
-        for (Follow follow : follows) {
-            if (follow.getWord().equals(word)) {
-                follow.count++;
-                found = true;
-                break;
-            }
-        }
-        if (!found) {
-            follows.add(new Follow(word, 1));
-        }
-    }
-
-    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(word).append(": ");
         for (Follow follow : follows) {
-            sb.append(follow.toString()).append(" ");
+            sb.append(follow.word).append("(").append(follow.count).append(") ");
         }
-        sb.append("\n");
         return sb.toString();
     }
+    
+
+    public Follow getFollow(String followWord) {
+        return follows.get(followWord);
+    }
 }
+

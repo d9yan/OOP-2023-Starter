@@ -6,65 +6,120 @@ import processing.core.PApplet;
 
 public class DANI extends PApplet {
 
-	ArrayList
+    ArrayList<Word> words = new ArrayList<Word>();
+    String[] lines;
 
-	public void settings() {
-		size(1000, 1000);
-		fullScreen(SPAN);
-	}
+    public void settings() {
+        size(1000, 1000);
+        fullScreen(SPAN);
+    }
 
-	String line;
-	
+    public void loadFile(String filename) {
+        lines = loadStrings(filename);
+        for (String line : lines) {
+            String[] words = splitTokens(line, " ,.!?-");
+            for (int i = 0; i < words.length; i++) {
+                words[i] = words[i].toLowerCase();
+                String currentWord = words[i];
+                if (i < words.length - 1) {
+                    String nextWord = words[i + 1];
+                    addFollow(currentWord, nextWord);
+                }
+                if (!containsWord(currentWord)) {
+                    Word w = new Word(currentWord);
+                    this.words.add(w);
+                }
+            }
+        }
+    }
 
-	public String loadFile(String s) {
-		loadStrings("small.txt");
-		split(line, ' ');
-		w.replaceAll();
-		s.toLowerCase();
-		return null;
-	}
+    public void addFollow(String word, String follow) {
+        Word w = findWord(word);
+        if (w != null) {
+            Follow f = w.findFollow(follow);
+            if (f != null) {
+                f.incrementCount();
+            } else {
+                w.addFollow(new Follow(follow));
+            }
+        }
+    }
 
-	public String findWord() {
-		return null;
-	}
+    public Word findWord(String word) {
+        for (Word w : words) {
+            if (w.getWord().equals(word)) {
+                return w;
+            }
+        }
+        return null;
+    }
 
-	public String findFollow() {
-		return null;
-	}
+    public boolean containsWord(String word) {
+        return findWord(word) != null;
+    }
 
+    public void printModel() {
+        for (Word w : words) {
+            System.out.print(w.getWord() + ": ");
+            for (Follow f : w.getFollows()) {
+                System.out.print(f.getWord() + "(" + f.getCount() + ") ");
+            }
+            System.out.println();
+        }
+    }
 
-
-	public void printModel()
-	{
-
-	}
-	
-	String[] sonnet;
-
-	public String[] writeSonnet() {
-		loadFile();
-		return null;
-	}
-
-	public void setup() {
-		colorMode(HSB);
-
-	}
-
-	public void keyPressed() {
-		if (keyCode == ' ') {
-			printModel();
-		}
-	}
-
-	float off = 0;
-
-	public void draw() {
-		background(0);
-		fill(255);
-		noStroke();
-		textSize(20);
-		textAlign(CENTER, CENTER);
-	}
+	public Follow getRandomFollow()
+    if (follows.size() == 0)
+    {
+        return null;
+    }
+    // pick a random follow
+    int index = (int) (Math.random() * follows.size());
+    return follows.get(index);
 }
 
+
+    public String[] writeSonnet() {
+        String[] sonnet = new String[14];
+        for (int i = 0; i < sonnet.length; i++) {
+            StringBuilder sb = new StringBuilder();
+            Word currentWord = words.get((int) random(words.size()));
+            sb.append(currentWord.getWord());
+            for (int j = 1; j <= 7; j++) {
+                Follow follow = currentWord.getRandomFollow();
+                if (follow == null) {
+                    break;
+                }
+                sb.append(" " + follow.getWord());
+                currentWord = findWord(follow.getWord());
+            }
+            sonnet[i] = sb.toString();
+        }
+        return sonnet;
+    }
+
+    public void drawSonnet(String[] sonnet) {
+        background(0);
+        fill(255);
+        textAlign(CENTER, CENTER);
+        textSize(30);
+        for (int i = 0; i < sonnet.length; i++) {
+            text(sonnet[i], width / 2, (height / 14) * (i + 1));
+        }
+    }
+
+    public void setup() {
+        colorMode(HSB);
+        loadFile("small.txt");
+        printModel();
+        String[] sonnet = writeSonnet();
+        drawSonnet(sonnet);
+    }
+
+    public void keyPressed() {
+        if (keyCode == ' ') {
+            String[] sonnet = writeSonnet();
+            drawSonnet(sonnet);
+        }
+    }
+}
